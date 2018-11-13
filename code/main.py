@@ -12,9 +12,8 @@ file.close()
 
 
 #matches = re.findall(r'[\s]+[^_]*_JJ_[^_\s]*[\s]*[^_]*_(?:NN|NNS)_[^_\s]*[\s]*[^_]*_[^_]*_[^_\s]*', file_contents, re.M|re.I)
-
-
-matches = re.findall(r'[\s]+[^_]*_(?:RB|RBR|RBS)_[^_\s]*[\s]*[^_]*_JJ_[^_\s]*[\s]*[^_]*_[^(?:NN|NNS)]*_[^_\s]*', file_contents, re.M|re.I)
+#matches = re.findall(r'[\s]+[^_]*_(?:RB|RBR|RBS)_[^_\s]*[\s]*[^_]*_JJ_[^_\s]*[\s]*[^_]*_[^(?:NN|NNS)]*_[^_\s]*', file_contents, re.M|re.I)
+matches = re.findall(r'[\s]+[^_]*_JJ_[^_\s]*[\s]*[^_]*_JJ_[^_\s]*[\s]*[^_]*_[^_]*_[^_\s]*', file_contents, re.M|re.I)
 
 
 
