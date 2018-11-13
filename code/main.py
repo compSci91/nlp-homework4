@@ -15,11 +15,10 @@ file.close()
 #line = "hi_hello comic_JJ_B-NP books_NNS_I-NP have_VBP_B-VP    "
 
 
-matchObj = re.search(r'[\s]+[^_]*_JJ_[^_\s]*[\s]*[^_]*_(NN|NNS)_[^_\s]*[\s]*[^_]*_[^_]*_[^_\s]*', file_contents, re.M|re.I)
+matches = re.findall(r'[\s]+[^_]*_JJ_[^_\s]*[\s]*[^_]*_(?:NN|NNS)_[^_\s]*[\s]*[^_]*_[^_]*_[^_\s]*', file_contents, re.M|re.I)
 
-if matchObj:
-     print "matchObj.group() : ", matchObj.group()
-
+for match in matches:
+    print match
 
 # line = "Cats are smarter than dogs"
 #
