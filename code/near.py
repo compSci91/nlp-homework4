@@ -11,32 +11,27 @@ file.close()
 
 ##STILL NEED TO DO THE REVERSE
 
-def numberOfHitsPriorToExcellent(phrase_regex, file_contents):
+def numberOfHitsPrior(phrase_regex, nearby_phrase, file_contents):
     word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){1,6}?'
-    excellent_regex = '(?:\sexcellent_[^_]*_[^_\s]*)'
+    excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
     matches = re.findall(r''+phrase_regex + word_regex +  excellent_regex, file_contents, re.M|re.I)
     # for match in matches:
     #     print match
     return len(matches)
 
-def numberOfHitsAfterExcellent(phrase_regex, file_contents):
+def numberOfHitsAfter(phrase_regex, nearby_phrase, file_contents):
         phrase_regex = '\s' + phrase_regex
         word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){1,6}?'
-        excellent_regex = '(?:\sexcellent_[^_]*_[^_\s]*)'
+        excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
         matches = re.findall(r''+excellent_regex + word_regex +  phrase_regex, file_contents, re.M|re.I)
-        # for match in matches:
-        #     print match
+        for match in matches:
+            print match
         return len(matches)
 
-
-def numberOfHitsNearExcellent(phrase, file_contents):
+def numberOfHitsNear(phrase, nearby_phrase, file_contents):
     phrase = phrase.replace(' ', '\s')
     phrase_regex = '(?:' + phrase + ')'
-    return numberOfHitsNearExcellent(phrase_regex, file_contents) + numberOfHitsAfterExcellent(phrase_regex, file_contents)
+    return numberOfHitsPrior(phrase_regex, nearby_phrase, file_contents) + numberOfHitsAfter(phrase_regex, nearby_phrase, file_contents)
 
 
-print numberOfHitsNearExcellent('memorable_JJ_I-NP score_NN_I-NP ,_,_B-O', file_contents)
-# numberOfHitsAfterExcellent('(?:,_,_B-O)', file_contents)
-# matches = re.findall(r''+ '(?:excellent_JJ_I-NP acting_NN_I-NP ,_,_B-O)', file_contents, re.M|re.I)
-# for match in matches:
-#     print match
+print numberOfHitsNear('memorable_JJ_I-NP score_NN_I-NP ,_,_B-O', 'excellent', file_contents)
