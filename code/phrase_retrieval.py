@@ -18,5 +18,8 @@ class PhraseExtractor:
 
         phrases = list1 + list2 + list3 + list4 + list5
 
-        for phrase in phrases:
-            print phrase + '\n'
+        # words = [w.replace('[br]', '<br />') for w in words]
+        two_word_phrases = [phrase.rsplit(' ', 1)[0].strip() for phrase in phrases]
+
+        for two_word_phrase in two_word_phrases:
+            print two_word_phrase + '\n'
