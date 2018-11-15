@@ -21,13 +21,16 @@ class HitCalculator:
             self.file_contents = self.file_contents + file.read() + ' '
             file.close()
 
+        self.numberOfHitsExcellent = self.numberOfHits('excellent')
+        self.numberOfHitsPoor = self.numberOfHits('poor')
+
     def numberOfHitsNear(self, phrase, nearby_phrase):
         phrase = phrase.replace(' ', '\s')
         phrase_regex = '(?:' + phrase + ')'
         return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.file_contents)
 
     def numberOfHitsPrior(self, phrase_regex, nearby_phrase, file_contents):
-        word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){1,6}?'
+        word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,6}?'
         excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
         matches = re.findall(r''+phrase_regex + word_regex +  excellent_regex, file_contents, re.M|re.I)
         for match in matches:
@@ -49,6 +52,8 @@ class HitCalculator:
         for match in matches:
             print match
         return len(matches)
+
+
 
 
 # print numberOfHitsNear('shao_JJ_B-NP khan_NN_I-NP was_VBD_B-VP', 'poor', file_contents)

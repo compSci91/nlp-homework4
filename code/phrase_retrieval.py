@@ -2,7 +2,7 @@ import re
 
 class PhraseExtractor:
     def __init__(self, path):
-        path = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/cv007_4968.txt.out"
+        # path = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/cv007_4968.txt.out"
         file  = open(path, 'r')
 
         file_contents = file.read()
