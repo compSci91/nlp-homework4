@@ -1,6 +1,5 @@
 import re
 
-
 class PhraseExtractor:
     def __init__(self, path):
         path = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/cv007_4968.txt.out"
@@ -18,8 +17,7 @@ class PhraseExtractor:
 
         phrases = list1 + list2 + list3 + list4 + list5
 
-        # words = [w.replace('[br]', '<br />') for w in words]
-        two_word_phrases = [phrase.rsplit(' ', 1)[0].strip() for phrase in phrases]
+        self.two_word_phrases = [phrase.rsplit(' ', 1)[0].strip() for phrase in phrases]
 
-        for two_word_phrase in two_word_phrases:
-            print two_word_phrase + '\n'
+    def getTwoWordPhrases(self):
+        return self.two_word_phrases
