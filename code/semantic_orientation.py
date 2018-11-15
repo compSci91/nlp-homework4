@@ -6,11 +6,11 @@ from near import HitsCalculator
 import math
 
 class SemanticOrientationCalculator:
-    def __init__(self, list_of_positive_file_paths, list_of_negative_file_paths):
-        self.list_of_files = [val for pair in zip(list_of_positive_files, list_of_negative_files) for val in pair]
+    def __init__(self, list_of_positive_test_file_paths, list_of_negative_test_file_paths):
+        self.test_files = [val for pair in zip(list_of_positive_test_file_paths, list_of_negative_test_file_paths) for val in pair]
 
     def calculate_semantic_orientation(self, phrase):
-        hitsCalculator = HitCalculator(self.list_of_files)
+        hitsCalculator = HitCalculator(self.test_files)
 
         numberOfHitsNearExcellent = hitsCalculator.numberOfHitsNear(phrase, 'excellent')
         numberOfHitsPoor = hitsCalculator.numberOfHits('poor')
