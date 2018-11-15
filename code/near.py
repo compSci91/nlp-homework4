@@ -16,14 +16,17 @@ class HitCalculator:
     def __init__(self, list_of_file_paths):
         self.file_contents = ''
 
-
-
         for file_path in list_of_file_paths:
             file = open(file_path, 'r')
             self.file_contents = self.file_contents + file.read() + ' '
             file.close()
 
-    def numberOfHitsPrior(phrase_regex, nearby_phrase, file_contents):
+    def numberOfHitsNear(self, phrase, nearby_phrase):
+        phrase = phrase.replace(' ', '\s')
+        phrase_regex = '(?:' + phrase + ')'
+        return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.file_contents)
+
+    def numberOfHitsPrior(self, phrase_regex, nearby_phrase, file_contents):
         word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){1,6}?'
         excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
         matches = re.findall(r''+phrase_regex + word_regex +  excellent_regex, file_contents, re.M|re.I)
@@ -31,7 +34,7 @@ class HitCalculator:
             print match
         return len(matches)
 
-    def numberOfHitsAfter(phrase_regex, nearby_phrase, file_contents):
+    def numberOfHitsAfter(self, phrase_regex, nearby_phrase, file_contents):
             phrase_regex = '\s' + phrase_regex
             word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){1,6}?'
             excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
@@ -39,11 +42,6 @@ class HitCalculator:
             for match in matches:
                 print match
             return len(matches)
-
-    def numberOfHitsNear(phrase, nearby_phrase):
-        phrase = phrase.replace(' ', '\s')
-        phrase_regex = '(?:' + phrase + ')'
-        return numberOfHitsPrior(phrase_regex, nearby_phrase, self.file_contents) + numberOfHitsAfter(phrase_regex, nearby_phrase, self.file_contents)
 
     def numberOfHits(self, nearby_phrase):
         nearby_phrase_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'

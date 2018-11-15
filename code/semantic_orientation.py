@@ -14,11 +14,3 @@ class SemanticOrientationCalculator:
         numberOfHitsExcellent = hitsCalculator.numberOfHitsNear()
         phrase_ration = (numberOfHitsNearExcellent * numberOfHitsPoor) / (numberOfHitsNearPoor * numberOfHitsExcellent)
         return math.log(phrase_ratio, 2)
-
-
-
-path = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/"
-
-onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
-
-print onlyfiles
