@@ -10,7 +10,13 @@ class SemanticOrientationCalculator:
         self.list_of_files = [val for pair in zip(list_of_positive_files, list_of_negative_files) for val in pair]
 
     def calculate_semantic_orientation(self, phrase):
-        hitsCalculator = HitsCalculator(self.list_of_files)
-        numberOfHitsExcellent = hitsCalculator.numberOfHitsNear()
+        hitsCalculator = HitCalculator(self.list_of_files)
+
+        numberOfHitsNearExcellent = hitsCalculator.numberOfHitsNear(phrase, 'excellent')
+        numberOfHitsPoor = hitsCalculator.numberOfHits('poor')
+
+        numberOfHitsNearPoor = hitsCalculator.numberOfHitsNear(phrase, 'poor')
+        numberOfHitsExcellent = hitsCalculator.numberOfHits('excellent')
+
         phrase_ration = (numberOfHitsNearExcellent * numberOfHitsPoor) / (numberOfHitsNearPoor * numberOfHitsExcellent)
         return math.log(phrase_ratio, 2)
