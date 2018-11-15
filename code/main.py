@@ -5,25 +5,9 @@ from near import HitCalculator
 from os import listdir
 from os.path import isfile, join
 
+positive_reviews_directory = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/"
+list_of_positive_files = [f for f in listdir(positive_reviews_directory) if isfile(join(positive_reviews_directory, f))]
+list_of_file_paths = ['../processed_docs/pos/' + file_name for file_name in list_of_positive_files]
 
-# path = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/"
-#
-# onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
-#
-# print onlyfiles
-
-
-file_path = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/cv013_10159.txt.out"
-file_path1 = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/cv017_22464.txt.out"
-
-hitsCalculator = HitCalculator([file_path, file_path1])
+hitsCalculator = HitCalculator(list_of_file_paths)
 print hitsCalculator.numberOfHits('excellent')
-
-
-# list_of_positive_files = ["1", "2", "3"]
-# list_of_negative_files = ["4", "5", "6"]
-#
-# interleaved_list = [val for pair in zip(list_of_positive_files, list_of_negative_files) for val in pair]
-#
-# for element in interleaved_list:
-#     print element

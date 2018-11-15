@@ -15,6 +15,9 @@ import re
 class HitCalculator:
     def __init__(self, list_of_file_paths):
         self.file_contents = ''
+
+
+
         for file_path in list_of_file_paths:
             file = open(file_path, 'r')
             self.file_contents = self.file_contents + file.read() + ' '
