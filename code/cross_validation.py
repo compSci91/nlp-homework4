@@ -20,6 +20,7 @@ class CrossValidator:
         semantic_orientation_values = []
 
         positive_test_file_path = positive_test_file_paths[0]
+        for positive_test_file_path in positive_test_file_
         phrase_extractor = PhraseExtractor(positive_test_file_path)
         extracted_phrases = phrase_extractor.getTwoWordPhrases()
 
@@ -29,7 +30,7 @@ class CrossValidator:
 
 
         semantic_orientation_average = sum(semantic_orientation_values) / len(semantic_orientation_values)
-
+        return semantic_orientation_average
 
 
         # for positive_test_file_path in positive_test_file_path:
