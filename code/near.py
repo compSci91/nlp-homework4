@@ -13,13 +13,18 @@ import re
 ##STILL NEED TO DO THE REVERSE
 
 class HitCalculator:
-    def __init__(self, list_of_file_paths):
-        print "Initializing HitCalculator!"
-        self.file_contents = ''
+    def __init__(self, list_of_positive_paths, list_of_negative_paths):
+        self.positive_file_contents = ''
+        self.negative_file_contents = ''
 
-        for file_path in list_of_file_paths:
+        for file_path in list_of_positive_paths:
             file = open(file_path, 'r')
-            self.file_contents = self.file_contents + file.read() + ' '
+            self.positive_file_contents = self.positive_file_contents + file.read() + ' '
+            file.close()
+
+        for file_path in list_of_negative_paths:
+            file = open(file_path, 'r')
+            self.negative_file_contents = self.negative_file_contents + file.read() + ' '
             file.close()
 
         self.numberOfHitsExcellent = self.numberOfHits('excellent')
@@ -28,7 +33,11 @@ class HitCalculator:
     def numberOfHitsNear(self, phrase, nearby_phrase):
         phrase = phrase.replace(' ', '\s')
         phrase_regex = '(?:' + phrase + ')'
-        return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.file_contents)
+        if phrase == 'excellent':
+            return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.positive_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.positive_file_contents)
+        else:
+            return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.negative_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.negative_file_contents)
+
 
     def numberOfHitsPrior(self, phrase_regex, nearby_phrase, file_contents):
         word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,6}?'
@@ -50,12 +59,13 @@ class HitCalculator:
                 matches = re.findall(r''+excellent_regex + word_regex +  phrase_regex, file_contents, re.M|re.I)
             except:
                 ""
-                
+
             return len(matches)
 
     def numberOfHits(self, nearby_phrase):
+        file_contents = self.positive_file_contents + self.negative_file_contents
         nearby_phrase_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
-        matches = re.findall(r''+nearby_phrase_regex, self.file_contents, re.M|re.I)
+        matches = re.findall(r''+nearby_phrase_regex, file_contents, re.M|re.I)
         return len(matches)
 
 

@@ -10,8 +10,10 @@ class SemanticOrientationCalculator:
     def __init__(self, list_of_positive_training_file_paths, list_of_negative_training_file_paths):
         unfiltered_training_files = [val for pair in zip(list_of_positive_training_file_paths, list_of_negative_training_file_paths) for val in pair]
         filter = Filter()
-        self.training_files = filter.filter_training_files(unfiltered_training_files)
-        self.hitsCalculator = HitCalculator(self.training_files)
+        excellent_training_files = filter.get_excellent_training_files(unfiltered_training_files)
+        poor_training_files = filter.get_poor_training_files(unfiltered_training_files)
+
+        self.hitsCalculator = HitCalculator(excellent_training_files, poor_training_files)
         self.phrase_dictionary = {}
 
 
