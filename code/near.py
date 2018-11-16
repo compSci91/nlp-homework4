@@ -31,20 +31,26 @@ class HitCalculator:
         return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.file_contents)
 
     def numberOfHitsPrior(self, phrase_regex, nearby_phrase, file_contents):
-        word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,20}?'
+        word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,6}?'
         excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
-        matches = re.findall(r''+phrase_regex + word_regex +  excellent_regex, file_contents, re.M|re.I)
-        for match in matches:
-            print match
+        matches = []
+        try:
+            matches = re.findall(r''+phrase_regex + word_regex +  excellent_regex, file_contents, re.M|re.I)
+        except:
+            ""
+
         return len(matches)
 
     def numberOfHitsAfter(self, phrase_regex, nearby_phrase, file_contents):
             phrase_regex = '\s' + phrase_regex
-            word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,20}?'
+            word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,6}?'
             excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
-            matches = re.findall(r''+excellent_regex + word_regex +  phrase_regex, file_contents, re.M|re.I)
-            for match in matches:
-                print match
+            matches = []
+            try:
+                matches = re.findall(r''+excellent_regex + word_regex +  phrase_regex, file_contents, re.M|re.I)
+            except:
+                ""
+                
             return len(matches)
 
     def numberOfHits(self, nearby_phrase):

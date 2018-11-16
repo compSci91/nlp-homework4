@@ -14,11 +14,7 @@ list_of_negative_files = [f for f in listdir(negative_reviews_directory) if isfi
 list_of_negative_file_paths = ['../processed_docs/neg/' + file_name for file_name in list_of_negative_files]
 
 
+
 cross_validator = CrossValidator(list_of_positive_file_paths, list_of_negative_file_paths)
 
-print cross_validator.performCrossValidation()
-#
-# hitsCalculator = HitCalculator(list_of_positive_file_paths)
-#
-# print hitsCalculator.numberOfHitsExcellent
-# print hitsCalculator.numberOfHitsPoor
+cross_validator.performCrossValidation()

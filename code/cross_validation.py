@@ -17,32 +17,29 @@ class CrossValidator:
         negative_training_file_paths = self.list_of_negative_file_paths[100:1000]
 
         semantic_orientation_calculator = SemanticOrientationCalculator(positive_training_file_paths, negative_training_file_paths)
-        semantic_orientation_values = []
 
-        positive_test_file_path = positive_test_file_paths[0]
-        for positive_test_file_path in positive_test_file_
-        phrase_extractor = PhraseExtractor(positive_test_file_path)
-        extracted_phrases = phrase_extractor.getTwoWordPhrases()
+        number_of_correct_classifications = 0;
 
-        for extracted_phrase in extracted_phrases:
-            semantic_orientation_value = semantic_orientation_calculator.calculate_semantic_orientation(extracted_phrase)
-            semantic_orientation_values.append(semantic_orientation_value)
+        positive_file_number = 0
+        for positive_test_file_path in positive_test_file_paths:
+            print "Working on positive file: " + str(positive_file_number)
+            positive_file_number+=1
+            phrase_extractor = PhraseExtractor(positive_test_file_path)
+            extracted_phrases = phrase_extractor.getTwoWordPhrases()
+            semantic_orientation_average = semantic_orientation_calculator.calculate_semantic_orientation(extracted_phrases)
+            print "Orientation is: " + str(semantic_orientation_average)
+            if semantic_orientation_average > 0:
+                number_of_correct_classifications+=1
 
+        negative_file_number = 0
+        for negative_test_file_path in negative_test_file_paths:
+            print "Working on negative file: " + str(negative_file_number)
+            negative_file_number+=1
+            phrase_extractor = PhraseExtractor(negative_test_file_path)
+            extracted_phrases = phrase_extractor.getTwoWordPhrases()
+            semantic_orientation_average = semantic_orientation_calculator.calculate_semantic_orientation(extracted_phrases)
+            print "Orientation is: " + str(semantic_orientation_average)
+            if semantic_orientation_average < 0:
+                number_of_correct_classifications+=1
 
-        semantic_orientation_average = sum(semantic_orientation_values) / len(semantic_orientation_values)
-        return semantic_orientation_average
-
-
-        # for positive_test_file_path in positive_test_file_path:
-        #     phrase_extractor = PhraseExtractor(positive_test_file_path)
-        #     extracted_phrases = phrase_extractor.getTwoWordPhrases()
-
-
-        # 1. Get first 100 positive files
-        # 2. Get first 100 negative files
-        # 3. For every positive file
-            #3.1 Extract phrases
-            #3.2 Get the Semantic Orientation of Every Phrase
-            #3.3 Average the semantic Orientation of every Phrase
-            #3.4 Classify the phrase
-        #4. Do the same for every negative file
+        print "[INFO] Fold 0 Accuracy: " + str(number_of_correct_classifications/200.0)
