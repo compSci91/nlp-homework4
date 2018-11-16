@@ -3,13 +3,17 @@
 from os import listdir
 from os.path import isfile, join
 from near import HitCalculator
+from filter import Filter
 import math
 
 class SemanticOrientationCalculator:
     def __init__(self, list_of_positive_training_file_paths, list_of_negative_training_file_paths):
-        self.training_files = [val for pair in zip(list_of_positive_training_file_paths, list_of_negative_training_file_paths) for val in pair]
+        unfiltered_training_files = [val for pair in zip(list_of_positive_training_file_paths, list_of_negative_training_file_paths) for val in pair]
+        filter = Filter()
+        self.training_files = filter.filter_training_files(unfiltered_training_files)
         self.hitsCalculator = HitCalculator(self.training_files)
         self.phrase_dictionary = {}
+
 
     def calculate_semantic_orientation(self, extracted_phrases):
         semantic_orientation_values = []
