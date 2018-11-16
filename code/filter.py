@@ -11,7 +11,7 @@ class Filter:
             file.close()
 
             if self.numberOfHits('excellent', file_contents) >= 1:
-                print "Found a file with excellent!"
+                # print "Found a file with excellent!"
                 filtered_training_files.append(file_path)
 
         return filtered_training_files
@@ -25,7 +25,7 @@ class Filter:
             file.close()
 
             if self.numberOfHits('poor', file_contents) >= 1:
-                print "Found a file with poor!"
+                # print "Found a file with poor!"
                 filtered_training_files.append(file_path)
 
         return filtered_training_files
