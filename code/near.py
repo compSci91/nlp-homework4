@@ -33,18 +33,20 @@ class HitCalculator:
     def numberOfHitsNear(self, phrase, nearby_phrase):
         phrase = phrase.replace(' ', '\s')
         phrase_regex = '(?:' + phrase + ')'
-        if phrase == 'excellent':
+        if nearby_phrase == 'excellent':
+            # print "Looking for phrase near excellent"
             return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.positive_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.positive_file_contents)
         else:
+            # print "looking for phrase near poor"
             return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.negative_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.negative_file_contents)
 
 
     def numberOfHitsPrior(self, phrase_regex, nearby_phrase, file_contents):
         word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,6}?'
-        excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
+        nearby_phrase_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
         matches = []
         try:
-            matches = re.findall(r''+phrase_regex + word_regex +  excellent_regex, file_contents, re.M|re.I)
+            matches = re.findall(r''+phrase_regex + word_regex +  nearby_phrase_regex, file_contents, re.M|re.I)
         except:
             ""
 
@@ -53,10 +55,10 @@ class HitCalculator:
     def numberOfHitsAfter(self, phrase_regex, nearby_phrase, file_contents):
             phrase_regex = '\s' + phrase_regex
             word_regex = '(?:\s[^_]*_[^_]*_[^_\s]*){0,6}?'
-            excellent_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
+            nearby_phrase_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
             matches = []
             try:
-                matches = re.findall(r''+excellent_regex + word_regex +  phrase_regex, file_contents, re.M|re.I)
+                matches = re.findall(r''+nearby_phrase_regex + word_regex +  phrase_regex, file_contents, re.M|re.I)
             except:
                 ""
 
