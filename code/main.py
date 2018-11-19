@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import re
 from cross_validation import CrossValidator
 from near import HitCalculator
 from os import listdir
@@ -14,7 +14,14 @@ list_of_negative_files = [f for f in listdir(negative_reviews_directory) if isfi
 list_of_negative_file_paths = ['../processed_docs/neg/' + file_name for file_name in list_of_negative_files]
 
 
+pattern = re.compile('worst')
+for m in pattern.finditer("This is the worst project ever"):
+    print m.span()
 
-cross_validator = CrossValidator(list_of_positive_file_paths, list_of_negative_file_paths)
 
-cross_validator.performCrossValidation()
+
+
+
+# cross_validator = CrossValidator(list_of_positive_file_paths, list_of_negative_file_paths)
+#
+# cross_validator.performCrossValidation()
