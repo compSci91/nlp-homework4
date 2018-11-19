@@ -1,20 +1,20 @@
 #!/usr/bin/python
 import re
+import sys
 from cross_validation import CrossValidator
 from near import HitCalculator
 from os import listdir
 from os.path import isfile, join
 
-positive_reviews_directory = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/pos/"
+positive_reviews_directory = sys.argv[1]
 list_of_positive_files = [f for f in listdir(positive_reviews_directory) if isfile(join(positive_reviews_directory, f))]
-list_of_positive_file_paths = ['../processed_docs/pos/' + file_name for file_name in list_of_positive_files]
+list_of_positive_file_paths = [positive_reviews_directory + file_name for file_name in list_of_positive_files]
 
-negative_reviews_directory = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 2018/Natural Language Processing/Homework4/processed_docs/neg/"
+negative_reviews_directory = sys.argv[2]
 list_of_negative_files = [f for f in listdir(negative_reviews_directory) if isfile(join(negative_reviews_directory, f))]
-list_of_negative_file_paths = ['../processed_docs/neg/' + file_name for file_name in list_of_negative_files]
+list_of_negative_file_paths = [negative_reviews_directory + file_name for file_name in list_of_negative_files]
 
-# worst_project_ever = "This is the worst project ever"
-# print worst_project_ever[:900]
+
 
 cross_validator = CrossValidator(list_of_positive_file_paths, list_of_negative_file_paths)
 

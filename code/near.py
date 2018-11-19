@@ -38,7 +38,7 @@ class HitCalculator:
             phrase_regex = re.compile(phrase)
         except:
             ""
-        window = 10
+        window = 250
         number_of_hits = 0
 
 
@@ -124,6 +124,7 @@ class HitCalculator:
         file_contents = self.positive_file_contents + self.negative_file_contents
         nearby_phrase_regex = '(?:\s'+ nearby_phrase + '_[^_]*_[^_\s]*)'
         matches = re.findall(r''+nearby_phrase_regex, file_contents, re.M|re.I)
+        # matches = re.findall(r''+nearby_phrase, file_contents, re.M|re.I)
         return len(matches)
 
 
