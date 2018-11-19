@@ -24,22 +24,22 @@ class CrossValidator:
 
             positive_file_number = 0
             for positive_test_file_path in positive_test_file_paths:
-                #print "Working on positive file: " + str(positive_file_number)
+                print "Working on positive file: " + str(positive_file_number)
                 positive_file_number+=1
                 phrase_extractor = PhraseExtractor(positive_test_file_path)
                 extracted_phrases = phrase_extractor.getTwoWordPhrases()
                 semantic_orientation_average = semantic_orientation_calculator.calculate_semantic_orientation(extracted_phrases)
-                #print "Orientation is: " + str(semantic_orientation_average)
+                print "Orientation is: " + str(semantic_orientation_average)
                 if semantic_orientation_average > 0:
                     number_of_correct_classifications+=1
 
             negative_file_number = 0
             for negative_test_file_path in negative_test_file_paths:
-                #print "Working on negative file: " + str(negative_file_number)
+                print "Working on negative file: " + str(negative_file_number)
                 phrase_extractor = PhraseExtractor(negative_test_file_path)
                 extracted_phrases = phrase_extractor.getTwoWordPhrases()
                 semantic_orientation_average = semantic_orientation_calculator.calculate_semantic_orientation(extracted_phrases)
-                #print "Orientation is: " + str(semantic_orientation_average)
+                print "Orientation is: " + str(semantic_orientation_average)
                 if semantic_orientation_average < 0:
                     number_of_correct_classifications+=1
 

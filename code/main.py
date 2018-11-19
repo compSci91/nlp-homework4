@@ -13,15 +13,9 @@ negative_reviews_directory = "/Users/JoshuaHowell/Desktop/Texas A&M/Year 2/Fall 
 list_of_negative_files = [f for f in listdir(negative_reviews_directory) if isfile(join(negative_reviews_directory, f))]
 list_of_negative_file_paths = ['../processed_docs/neg/' + file_name for file_name in list_of_negative_files]
 
+# worst_project_ever = "This is the worst project ever"
+# print worst_project_ever[:900]
 
-pattern = re.compile('worst')
-for m in pattern.finditer("This is the worst project ever"):
-    print m.span()
+cross_validator = CrossValidator(list_of_positive_file_paths, list_of_negative_file_paths)
 
-
-
-
-
-# cross_validator = CrossValidator(list_of_positive_file_paths, list_of_negative_file_paths)
-#
-# cross_validator.performCrossValidation()
+cross_validator.performCrossValidation()

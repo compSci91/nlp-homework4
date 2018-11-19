@@ -31,14 +31,70 @@ class HitCalculator:
         self.numberOfHitsPoor = self.numberOfHits('poor')
 
     def numberOfHitsNear(self, phrase, nearby_phrase):
-        phrase = phrase.replace(' ', '\s')
-        phrase_regex = '(?:' + phrase + ')'
+        # phrase = phrase.replace(' ', '\s')
+        # phrase_regex = re.compile('(?:' + phrase + ')')
+        phrase_regex = ""
+        try:
+            phrase_regex = re.compile(phrase)
+        except:
+            ""
+        window = 10
+        number_of_hits = 0
+
+
         if nearby_phrase == 'excellent':
-            # print "Looking for phrase near excellent"
-            return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.positive_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.positive_file_contents)
+            matches = []
+
+            try:
+                matches = phrase_regex.finditer(self.positive_file_contents)
+            except:
+                ""
+
+            for match in matches:
+                (begin_index, end_index) =  match.span()
+                first_window = self.positive_file_contents[:begin_index].split()
+                second_window = self.positive_file_contents[end_index:].split()
+                first_window = first_window[len(first_window) - window:]
+                second_window = second_window[:window]
+
+                for word in first_window:
+                    if 'excellent' in word:
+                        number_of_hits += 1
+
+                for word in second_window:
+                    if 'excellent' in word:
+                        number_of_hits += 1
+
         else:
-            # print "looking for phrase near poor"
-            return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.negative_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.negative_file_contents)
+            matches = []
+
+            try:
+                matches = phrase_regex.finditer(self.negative_file_contents)
+            except:
+                ""
+
+            for match in matches:
+                (begin_index, end_index) =  match.span()
+                first_window = self.negative_file_contents[:begin_index].split()
+                second_window = self.negative_file_contents[end_index:].split()
+                first_window = first_window[len(first_window) - window:]
+                second_window = second_window[:window]
+
+                for word in first_window:
+                    if 'poor' in word:
+                        number_of_hits += 1
+
+                for word in second_window:
+                    if 'poor' in word:
+                        number_of_hits += 1
+
+        return number_of_hits
+
+
+        # if nearby_phrase == 'excellent':
+        #     return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.positive_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.positive_file_contents)
+        # else:
+        #     return self.numberOfHitsPrior(phrase_regex, nearby_phrase, self.negative_file_contents) + self.numberOfHitsAfter(phrase_regex, nearby_phrase, self.negative_file_contents)
 
 
     def numberOfHitsPrior(self, phrase_regex, nearby_phrase, file_contents):

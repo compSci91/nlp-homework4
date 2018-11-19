@@ -30,11 +30,11 @@ class SemanticOrientationCalculator:
                 numberOfHitsNearPoor = self.hitsCalculator.numberOfHitsNear(phrase, 'poor') + 0.01
                 numberOfHitsExcellent = self.hitsCalculator.numberOfHitsExcellent + 0.01
 
-                if (numberOfHitsNearExcellent >= 4 or numberOfHitsNearPoor >=4):
-                    phrase_ratio = (numberOfHitsNearExcellent * numberOfHitsPoor) / (numberOfHitsNearPoor * numberOfHitsExcellent)
-                    linearized_phrase_ratio = math.log(phrase_ratio, 2)
-                    semantic_orientation_values.append(linearized_phrase_ratio)
-                    self.phrase_dictionary[phrase] = linearized_phrase_ratio
+                # if (numberOfHitsNearExcellent >= 1 or numberOfHitsNearPoor >=1):
+                phrase_ratio = (numberOfHitsNearExcellent * numberOfHitsPoor) / (numberOfHitsNearPoor * numberOfHitsExcellent)
+                linearized_phrase_ratio = math.log(phrase_ratio, 2)
+                semantic_orientation_values.append(linearized_phrase_ratio)
+                self.phrase_dictionary[phrase] = linearized_phrase_ratio
 
 
 
